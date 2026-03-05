@@ -1,42 +1,41 @@
 import { useDispatch } from "react-redux";
 import {
-  removeFromCart,
-  increaseQty,
-  decreaseQty,
+ removeFromCart,
+ increaseQty,
+ decreaseQty
 } from "../redux/cartSlice";
 
-function CartItem({ item }) {
-  const dispatch = useDispatch();
+function CartItem({item}){
 
-  return (
-    <div className="cart-item">
-      <img src={item.thumbnail} alt={item.title} />
+ const dispatch = useDispatch();
 
-      <div className="cart-details">
-        <h4>{item.title}</h4>
-        <p>${item.price}</p>
+ return(
 
-        <div className="quantity-controls">
-          <button onClick={() => dispatch(decreaseQty(item.id))}>
-            -
-          </button>
+  <div className="cart-item">
 
-          <span>{item.quantity}</span>
+   <img src={item.thumbnail} width="80"/>
 
-          <button onClick={() => dispatch(increaseQty(item.id))}>
-            +
-          </button>
-        </div>
+   <h4>{item.title}</h4>
 
-        <button
-          onClick={() => dispatch(removeFromCart(item.id))}
-          className="remove-btn"
-        >
-          Remove
-        </button>
-      </div>
-    </div>
-  );
+   <button
+    onClick={()=>dispatch(decreaseQty(item.id))}
+   >-</button>
+
+   {item.quantity}
+
+   <button
+    onClick={()=>dispatch(increaseQty(item.id))}
+   >+</button>
+
+   <button
+    onClick={()=>dispatch(removeFromCart(item.id))}
+   >
+    Remove
+   </button>
+
+  </div>
+
+ );
 }
 
 export default CartItem;

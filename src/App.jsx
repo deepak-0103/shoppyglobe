@@ -1,18 +1,67 @@
-import React, { Suspense, lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
 import Header from "./components/Header";
-import { Outlet } from "react-router-dom";
 
-const Home = lazy(() => import("./pages/Home"));
+const ProductList = lazy(() => import("./components/ProductList"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-function App() {
-  return (
-    <>
-      <Header />
-      <Suspense fallback={<h2>Loading page...</h2>}>
-        <Outlet />
-      </Suspense>
-    </>
-  );
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <Header />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <ProductList />
+        </Suspense>
+      </>
+    ),
+  },
 
-export default App;
+  {
+    path: "/product/:id",
+    element: (
+      <>
+        <Header />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <ProductDetail />
+        </Suspense>
+      </>
+    ),
+  },
+
+  {
+    path: "/cart",
+    element: (
+      <>
+        <Header />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Cart />
+        </Suspense>
+      </>
+    ),
+  },
+
+  {
+    path: "/checkout",
+    element: (
+      <>
+        <Header />
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Checkout />
+        </Suspense>
+      </>
+    ),
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
+
+export default router;
